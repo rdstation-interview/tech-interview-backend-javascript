@@ -6,6 +6,6 @@ RUN apk update && apk add bash git curl --no-cache
 
 USER node
 
-EXPOSE 7730
+EXPOSE 3000
 
 CMD [ "tail", "-f", "/dev/null" ]

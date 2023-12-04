@@ -5,25 +5,25 @@ networks:
     driver: bridge
 
 services:
-  # postgres:
-  #   image: postgres
-  #   restart: on-failure
-  #   ports:
-  #     - 5432:5432
-  #   container_name: postgres
-  #   volumes:
-  #     - ./tmp/database/postgres:/var/lib/postgresql/data
-  #   environment:
-  #     POSTGRES_PASSWORD: postgres
-  #   networks:
-  #     - kong-fc
-  #   healthcheck:
-  #     test: ["CMD", "pg_isready", "-U", "postgres"]
-  #     interval: 5s
-  #     timeout: 5s
-  #     retries: 5
-  #   extra_hosts:
-  #     - host.docker.internal:host-gateway
+  postgres:
+    image: postgres
+    restart: on-failure
+    ports:
+      - 5432:5432
+    container_name: postgres
+    volumes:
+      - ./tmp/database/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - test-tech
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    extra_hosts:
+      - host.docker.internal:host-gateway
   test-tech:
     build:
       dockerfile: ./.docker/dockerfiles/Dockerfile
@@ -48,6 +48,6 @@ services:
       - test-tech
     extra_hosts:
       - host.docker.internal:host-gateway
-    # depends_on:
-    #   - postgres
+    depends_on:
+      - postgres
       
