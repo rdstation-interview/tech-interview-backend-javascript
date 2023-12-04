@@ -1,0 +1,53 @@
+version: "3.8"
+
+networks:
+  test-tech:
+    driver: bridge
+
+services:
+  # postgres:
+  #   image: postgres
+  #   restart: on-failure
+  #   ports:
+  #     - 5432:5432
+  #   container_name: postgres
+  #   volumes:
+  #     - ./tmp/database/postgres:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_PASSWORD: postgres
+  #   networks:
+  #     - kong-fc
+  #   healthcheck:
+  #     test: ["CMD", "pg_isready", "-U", "postgres"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 5
+  #   extra_hosts:
+  #     - host.docker.internal:host-gateway
+  test-tech:
+    build:
+      dockerfile: ./.docker/dockerfiles/Dockerfile
+      context: .
+    container_name: test-tech
+    restart: on-failure
+    entrypoint: sh ./.docker/entrypoints/entrypoint.sh
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:3000/api"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 10s
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/test-tech/app
+    networks:
+      - test-tech
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    # depends_on:
+    #   - postgres
+      
