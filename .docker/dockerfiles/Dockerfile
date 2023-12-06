@@ -4,7 +4,7 @@ WORKDIR /usr/test-tech/app
 
 RUN apk update && apk add bash git curl --no-cache
 
-USER node
+USER root
 
 EXPOSE 3000
 
