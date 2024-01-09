@@ -18,7 +18,7 @@ describe('HealthCheck route', () => {
 
   describe('/api/auth_transactions', () => {
     describe('when the transaction amount is less than $1k', () => {
-      it.skip('approves the transaction', async () => {
+      it('approves the transaction', async () => {
         const payload = {
           amount: 700,
           card_number: '4321123443211234'
@@ -33,7 +33,7 @@ describe('HealthCheck route', () => {
     })
 
     describe('when the transaction amount is equal to $1k', () => {
-      it.skip('approves the transaction', async () => {
+      it('approves the transaction', async () => {
         const payload = {
           amount: 1000,
           card_number: '4321123443211234'
@@ -48,7 +48,7 @@ describe('HealthCheck route', () => {
     })
 
     describe('when the transaction amount is greater than $1k', () => {
-      it.skip('denies the transaction', async () => {
+      it('denies the transaction', async () => {
         const payload = {
           amount: 1001,
           card_number: '4321123443211234'
