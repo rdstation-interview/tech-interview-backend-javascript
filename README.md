@@ -14,3 +14,8 @@ $ docker logs -f test-tech
 ```bash
 $ docker exec -it test-tech npm run test
 ```
+
+### Conecte-se ao banco de dados
+```bash
+docker exec -it postgres psql postgres://postgres:postgres@postgres:5432
+```
